@@ -18,15 +18,15 @@ public class ConsoleController implements CommandLineRunner {
 
     @Autowired
     @Qualifier("commandMap")
-    private final Map<String, Command> commandMap;
+    private Map<String, Command> commandMap;
     private final HelpCommand helpCommand;
+    private final Scanner scanner;
 
     @Override
     public void run(String... args) throws InterruptedException {
-        Scanner scanner = new Scanner(System.in);
-        do{
+        do {
             TimeUnit.MILLISECONDS.sleep(500);
-        }while (commandMap.getOrDefault(scanner.next(), helpCommand).execute());
+        } while (commandMap.getOrDefault(scanner.next(), helpCommand).execute());
     }
 
 

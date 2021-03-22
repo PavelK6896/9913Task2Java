@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-@Service
 @Slf4j
+@Service
 @RequiredArgsConstructor
 public class MainService {
 
@@ -48,6 +48,7 @@ public class MainService {
             System.out.println(f.getListUser().size());
         });
     }
+
 
 //    public void getListProject() { //один запрос
 //        projectRep.findAll().forEach(f -> {
