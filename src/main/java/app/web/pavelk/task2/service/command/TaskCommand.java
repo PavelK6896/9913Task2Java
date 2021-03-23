@@ -22,29 +22,43 @@ public class TaskCommand implements Crud {
 
 
     @Override
-    public void get() throws JsonProcessingException {
-        log.info(objectMapper.writeValueAsString(taskRep.findAll()));
-
+    public void get() {
+        try {
+            log.info("\n" + objectMapper.writeValueAsString(taskRep.findAll()));
+        } catch (JsonProcessingException e) {
+            log.error("get ", e);
+        }
     }
 
     @Override
     public void create() {
-        log.info("create task enter a name");
+        log.info("\ncreate task enter a name");
         taskRep.save(Task.builder().taskName(scanner.next()).build());
+        this.get();
     }
 
     @Override
     public void update() {
-
+        this.get();
+        Task task = new Task();
+        log.info("\nid ");
+        task.setTaskId(Long.parseLong(scanner.next()));
+        log.info("\nname ");
+        task.setTaskName(scanner.next());
+        taskRep.save(task);
+        this.get();
     }
 
     @Override
     public void delete() {
-
+        this.get();
+        log.info("\nid ");
+        taskRep.deleteById(Long.parseLong(scanner.next()));
+        this.get();
     }
 
     @Override
     public Integer id() {
-        return 2;
+        return 3;
     }
 }

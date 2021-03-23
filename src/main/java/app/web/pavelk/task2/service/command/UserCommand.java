@@ -22,28 +22,43 @@ public class UserCommand implements Crud {
     private final ObjectMapper objectMapper;
 
     @Override
-    public void get() throws JsonProcessingException {
-        log.info(objectMapper.writeValueAsString(userRep.findAll()));
+    public void get() {
+        try {
+            log.info("\n" + objectMapper.writeValueAsString(userRep.findAll()));
+        } catch (JsonProcessingException e) {
+            log.error("get ", e);
+        }
     }
 
     @Override
     public void create() {
-        log.info("create user enter a name");
+        log.info("\ncreate user enter a name");
         userRep.save(User.builder().firstName(scanner.next()).build());
+        this.get();
     }
 
     @Override
     public void update() {
-
+        this.get();
+        User user = new User();
+        log.info("\nid ");
+        user.setUserId(Long.parseLong(scanner.next()));
+        log.info("\nname ");
+        user.setFirstName(scanner.next());
+        userRep.save(user);
+        this.get();
     }
 
     @Override
     public void delete() {
-
+        this.get();
+        log.info("\nid ");
+        userRep.deleteById(Long.parseLong(scanner.next()));
+        this.get();
     }
 
     @Override
     public Integer id() {
-        return 3;
+        return 2;
     }
 }

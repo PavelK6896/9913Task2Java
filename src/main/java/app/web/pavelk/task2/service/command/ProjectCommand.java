@@ -22,26 +22,40 @@ public class ProjectCommand implements Crud {
     private final ObjectMapper objectMapper;
 
     @Override
-    public void get() throws JsonProcessingException {
-        log.info(objectMapper.writeValueAsString(projectRep.findAll()));
-
+    public void get() {
+        try {
+            log.info("\n" + objectMapper.writeValueAsString(projectRep.findAll()));
+        } catch (JsonProcessingException e) {
+            log.error("get ", e);
+        }
     }
 
     @Override
     public void create() {
-        log.info("create project enter a name");
+        log.info("\ncreate project enter a name");
         projectRep.save(Project.builder().projectName(scanner.next()).build());
+        this.get();
     }
 
 
     @Override
     public void update() {
-
+        this.get();
+        Project project = new Project();
+        log.info("\nid ");
+        project.setProjectId(Long.parseLong(scanner.next()));
+        log.info("\nname ");
+        project.setProjectName(scanner.next());
+        projectRep.save(project);
+        this.get();
     }
 
     @Override
     public void delete() {
-
+        this.get();
+        log.info("\nid ");
+        projectRep.deleteById(Long.parseLong(scanner.next()));
+        this.get();
     }
 
     @Override
