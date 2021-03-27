@@ -21,12 +21,14 @@ public class GetCommand implements Command {
     @Override
     public boolean execute() {
 
-        log.info("\n1 - getUserByTask\n2 - getListProject\n3 - ");
+        log.info("\n1 - getUserByTask\n2 - getListProject\n3 - getAllTimeUser ");
         int id = Integer.parseInt(scanner.next());
         if (id == 1) {
             mainService.getUserByTask();
         } else if (id == 2) {
             mainService.getListProject();
+        } else if (id == 3) {
+            mainService.getAllTimeUser();
         }
 
         return true;

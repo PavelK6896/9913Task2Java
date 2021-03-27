@@ -10,19 +10,19 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class SetUserToProjectCommand implements Command {
+public class SetTaskToTaskCommand implements Command {
 
     private final MainService mainService;
 
     @Override
     public boolean execute() {
-        mainService.setUserToProject();
+        mainService.setTaskToTask();
         return true;
     }
 
     @Override
     public List<String> commandName() {
-        return Arrays.asList("set user to project", "-up");
+        return Arrays.asList("task to task", "-tt");
     }
 
 }

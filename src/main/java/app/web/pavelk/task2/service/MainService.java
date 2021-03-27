@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 @Slf4j
@@ -39,14 +40,22 @@ public class MainService {
     @Transactional
     public void loadInit() throws IOException {
         LoadJson loadJson = UploadFile.getFile();
-        for (Project p : loadJson.getProjects()) {
-            projectRep.save(p);
-        }
-        for (User p : loadJson.getUsers()) {
-            userRep.save(p);
-        }
         for (Task p : loadJson.getTasks()) {
             taskRep.save(p);
+        }
+
+        User user = loadJson.getUsers().get(0);
+        userRep.save(user);
+        List<Task> all = (List<Task>) taskRep.findAll();
+        all.forEach(f -> f.setUser(user));
+
+        User user2 = loadJson.getUsers().get(1);
+        userRep.save(user2);
+        all.get(6).setUser(user2);
+        taskRep.saveAll(all);
+
+        for (Project p : loadJson.getProjects()) {
+            projectRep.save(p);
         }
     }
 
@@ -56,6 +65,22 @@ public class MainService {
             System.out.println(f);
             System.out.println(f.getListUser().size());
         });
+    }
+
+    @Transactional
+    public void getUserByTask() {
+        taskCommand.get();
+        log.info("\nselect task id ");
+        Task task = taskRep.findById(Long.parseLong(scanner.next())).orElseThrow(EntityNotFoundException::new);
+        System.out.println(task.getUser());
+    }
+
+    @Transactional
+    public void getAllTimeUser() {
+        userCommand.get();
+        log.info("\nselect user id ");
+        User user = userRep.findById(Long.parseLong(scanner.next())).orElseThrow(EntityNotFoundException::new);
+        System.out.println(taskRep.findAllTimeByUser(user));
     }
 
     @Transactional
@@ -70,7 +95,6 @@ public class MainService {
         projectRep.save(project);
         projectCommand.get();
     }
-
 
     @Transactional
     public void setTaskToUser() {
@@ -87,13 +111,16 @@ public class MainService {
         userCommand.get();
     }
 
-
     @Transactional
-    public void getUserByTask() {
+    public void setTaskToTask() {
         taskCommand.get();
-        log.info("\nselect task id ");
-        Task task = taskRep.findById(Long.parseLong(scanner.next())).orElseThrow(EntityNotFoundException::new);
-        System.out.println(task.getUser());
+        log.info("\nselect task1 id main ");
+        Task task1 = taskRep.findById(Long.parseLong(scanner.next())).orElseThrow(EntityNotFoundException::new);
+        log.info("\nselect task2 id ");
+        Task task2 = taskRep.findById(Long.parseLong(scanner.next())).orElseThrow(EntityNotFoundException::new);
+        task1.getListTasks().add(task2);
+        taskRep.save(task1);
+        taskCommand.get();
     }
 
 

@@ -1,7 +1,15 @@
 {
   "users": [
     {
-      "firstName": "firstName1"
+      "firstName": "firstName1",
+      "listTasks": [
+        {
+          "taskId": 5
+        },
+        {
+          "taskId": 6
+        }
+      ]
     },
     {
       "firstName": "firstName2"
@@ -9,7 +17,12 @@
   ],
   "projects": [
     {
-      "projectName": "project1"
+      "projectName": "project1",
+      "listUser": [
+        {
+          "userId": 1
+        }
+      ]
     },
     {
       "projectName": "project2"
@@ -17,10 +30,67 @@
   ],
   "tasks": [
     {
-      "taskName": "task1"
+      "taskId": 1,
+      "taskName": "task1",
+      "isActive": true,
+      "time": 15
     },
     {
-      "taskName": "task2"
+      "taskId": 2,
+      "taskName": "task2",
+      "isActive": true,
+      "time": 15,
+      "listTasks": [
+        {
+          "taskId": 1
+        }
+      ]
+    },
+    {
+      "taskId": 3,
+      "taskName": "task3",
+      "isActive": true,
+      "time": 15
+    },
+    {
+      "taskId": 4,
+      "taskName": "task4",
+      "isActive": true,
+      "time": 15
+    },
+    {
+      "taskId": 5,
+      "taskName": "task5",
+      "isActive": true,
+      "time": 15,
+      "listTasks": [
+        {
+          "taskId": 2
+        },
+        {
+          "taskId": 3
+        }
+      ]
+    },
+    {
+      "taskId": 6,
+      "taskName": "task6",
+      "isActive": true,
+      "time": 15,
+      "listTasks": [
+        {
+          "taskId": 4
+        },
+        {
+          "taskId": 5
+        }
+      ]
+    },
+    {
+      "taskId": 7,
+      "taskName": "task7",
+      "isActive": true,
+      "time": 15
     }
   ]
 }

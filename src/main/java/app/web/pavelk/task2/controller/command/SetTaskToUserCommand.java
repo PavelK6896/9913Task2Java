@@ -22,7 +22,7 @@ public class SetTaskToUserCommand implements Command {
 
     @Override
     public List<String> commandName() {
-        return Arrays.asList("set task", "-st");
+        return Arrays.asList("set task to user", "-tu");
     }
 
 }
